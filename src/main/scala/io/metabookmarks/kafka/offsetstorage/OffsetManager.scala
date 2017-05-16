@@ -16,7 +16,7 @@
 
 package io.metabookmarks.kafka.offsetstorage
 
-import kafka.model.Tables._
+import io.metabookmarks.kafka.offsetstorage.Tables._
 import org.apache.kafka.common.TopicPartition
 import org.apache.zookeeper.{ WatchedEvent, Watcher, ZooKeeper }
 import slick.jdbc.PostgresProfile
@@ -65,7 +65,7 @@ class OffsetManager(db: PostgresProfile.backend.Database, zookeeperQuorum: Strin
       db.run(
           DBIO
             .sequence(newRange.map { i =>
-              offsets += OffsetRow(consumer, topic, i, 0L)
+              offsets += OffsetRow(topic, i, consumer, 0L)
             })
             .transactionally
         )
