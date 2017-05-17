@@ -25,11 +25,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.DurationInt
 
 class OffsetManagerSpec extends WordSpec {
-  val db: PostgresProfile.backend.Database = Database.forConfig("kafkademo")
 
-  val kaflaConnect = sys.env.get("KAFKA_IT_CONNECT").getOrElse("localhost:9092")
+  "OffsetManager" ignore {
 
-  "OffsetManager" should {
+    val db: PostgresProfile.backend.Database = Database.forConfig("kafkademo")
+
+    val kaflaConnect = sys.env.get("KAFKA_IT_CONNECT").getOrElse("localhost:9092")
+
     "init RDBMS table from zookeeper" in {
       val fut = OffsetManager(db, kaflaConnect)
         .getPartitionOffsets("test", "test")
