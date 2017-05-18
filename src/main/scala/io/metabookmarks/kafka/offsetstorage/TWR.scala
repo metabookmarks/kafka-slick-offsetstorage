@@ -16,9 +16,9 @@
 
 package io.metabookmarks.kafka.offsetstorage
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ Future, Promise }
 import scala.util.{ Failure, Success, Try }
-import scala.concurrent.ExecutionContext.Implicits.global
 object TWR {
 
   def twr[A <: { def close() }, B](zk: A)(f: (A) => B) = {

@@ -17,23 +17,24 @@
 package io.metabookmarks.kafka.offsetstorage
 
 import org.scalatest.WordSpec
-import slick.jdbc.PostgresProfile
-import slick.jdbc.PostgresProfile.api._
+import slick.jdbc
+import slick.jdbc.{ JdbcBackend, PostgresProfile }
 
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.DurationInt
 
-class OffsetManagerSpec extends WordSpec {
+class SlickKafkaOffsetManagerSpec extends WordSpec {
 
   "OffsetManager" ignore {
 
-    val db: PostgresProfile.backend.Database = Database.forConfig("kafkademo")
-
-    val kaflaConnect = sys.env.get("KAFKA_IT_CONNECT").getOrElse("localhost:9092")
+    val kaflaConnect = sys.env.get("KAFKA_IT_CONNECT").getOrElse("localhost:2181")
 
     "init RDBMS table from zookeeper" in {
-      val fut = OffsetManager(db, kaflaConnect)
+
+      val db: jdbc.JdbcBackend.Database = JdbcBackend.Database.forConfig("kafkademo")
+
+      val fut = new SlickKafkaOffsetManager(db, PostgresProfile, kaflaConnect)
         .getPartitionOffsets("test", "test")
 
       fut.foreach { o =>
