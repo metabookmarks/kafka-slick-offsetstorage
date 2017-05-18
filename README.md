@@ -2,6 +2,8 @@
 
 Welcome to kafka-slick-offsetstorage!
 
+![status](https://api.travis-ci.org/metabookmarks/kafka-slick-offsetstorage.svg?branch=master)
+
 ## Contribution policy ##
 
 Contributions via GitHub pull requests are gladly accepted from their original author. Along with
