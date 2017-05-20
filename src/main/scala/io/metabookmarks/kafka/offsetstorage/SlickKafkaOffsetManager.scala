@@ -24,9 +24,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 /**
-  *
-  * @param db
-  * @param zookeeperQuorum
+  * Slick storage implementation.
   */
 class SlickKafkaOffsetManager(db: JdbcBackend.Database,
                               dbProfile: JdbcProfile,
@@ -60,4 +58,10 @@ class SlickKafkaOffsetManager(db: JdbcBackend.Database,
       } yield o).result)
       .map(_.map(o => new TopicPartition(o.topic, o.partition) -> o.offset))
 
+  override def update(consumer: String, topicOffsets: Seq[(TopicPartition, Long)]): Future[Long] = {
+    val r = topicOffsets.map {
+      case (tp, o) => offsets.insertOrUpdate(OffsetRow(tp.topic, tp.partition, consumer, o))
+    }
+    db.run(DBIO.sequence(r)).map(cs => cs.sum)
+  }
 }

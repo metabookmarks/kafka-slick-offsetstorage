@@ -25,6 +25,7 @@ object Tables extends {
 trait Tables {
   val profile: slick.jdbc.JdbcProfile
   import profile.api._
+  import slick.model.ForeignKeyAction
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
   import slick.jdbc.{ GetResult => GR }
 
@@ -71,7 +72,7 @@ trait Tables {
     val offset: Rep[Long] = column[Long]("offset")
 
     /** Primary key of Offset (database name offset_pkey) */
-    val pk = primaryKey("offset_pkey", (topic, partition))
+    val pk = primaryKey("offset_pkey", (topic, partition, consumer))
   }
 
   /** Collection-like TableQuery object for table Offset */

@@ -46,15 +46,6 @@ abstract class OffsetStore(zookeeperQuorum: String) {
     }
 
   /**
-    * Retrieve stored offset by partition from storage.
-    * @param topic
-    * @param consumer
-    * @return
-    */
-  protected def getFromStorage(topic: String,
-                               consumer: String): Future[Seq[(TopicPartition, Long)]]
-
-  /**
     * Insert new partition offet(0) in storage.
     * <br />
     * Used when for new consumer and/or the partition.
@@ -67,6 +58,17 @@ abstract class OffsetStore(zookeeperQuorum: String) {
   protected def newPartitions(topic: String,
                               consumer: String,
                               value: Range): Future[Seq[(TopicPartition, Long)]]
+
+  /**
+    * Retrieve stored offset by partition from storage.
+    * @param topic
+    * @param consumer
+    * @return
+    */
+  protected def getFromStorage(topic: String,
+                               consumer: String): Future[Seq[(TopicPartition, Long)]]
+
+  def update(consumer: String, topicOffsets: Seq[(TopicPartition, Long)]): Future[Long]
 
   /**
     * Return the partition and offsets for a given topic and consumer.

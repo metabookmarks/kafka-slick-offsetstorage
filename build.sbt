@@ -93,3 +93,5 @@ lazy val headerSettings =
   Seq(
     headers := Map("scala" -> Apache2_0("2017", "Olivier NOUGUIER"))
   )
+
+fork in Test := true

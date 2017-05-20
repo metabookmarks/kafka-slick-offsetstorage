@@ -16,6 +16,7 @@
 
 package io.metabookmarks.kafka.offsetstorage
 
+import org.apache.kafka.common.TopicPartition
 import org.scalatest.WordSpec
 import slick.jdbc
 import slick.jdbc.{ JdbcBackend, PostgresProfile }
@@ -26,7 +27,7 @@ import scala.concurrent.duration.DurationInt
 
 class SlickKafkaOffsetManagerSpec extends WordSpec {
 
-  "OffsetManager" must {
+  "OffsetManager" ignore  {
 
     val kaflaConnect = sys.env.get("KAFKA_IT_CONNECT").getOrElse("localhost:2181")
 
@@ -34,13 +35,17 @@ class SlickKafkaOffsetManagerSpec extends WordSpec {
 
       val db: jdbc.JdbcBackend.Database = JdbcBackend.Database.forConfig("kafkademo")
 
-      val fut = new SlickKafkaOffsetManager(db, PostgresProfile, kaflaConnect)
+      val slickStore = new SlickKafkaOffsetManager(db, PostgresProfile, kaflaConnect)
+
+      val fut = slickStore
         .getPartitionOffsets("test", "test")
 
       fut.foreach { o =>
         println(s"$o")
 
       }
+
+      slickStore.update("test", Seq((new TopicPartition("test", 0), 10)))
 
       Await.result(fut, 10 seconds)
     }
