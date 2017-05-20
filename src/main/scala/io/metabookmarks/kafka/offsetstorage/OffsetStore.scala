@@ -21,6 +21,10 @@ import org.apache.zookeeper.{ WatchedEvent, Watcher, ZooKeeper }
 
 import scala.concurrent.{ ExecutionContext, Future }
 
+/**
+  * Base class to store / retrieve consumer offset.
+  * @param zookeeperQuorum
+  */
 abstract class OffsetStore(zookeeperQuorum: String) {
 
   /**
@@ -31,7 +35,7 @@ abstract class OffsetStore(zookeeperQuorum: String) {
   }
 
   /**
-    * Zookeeper request.
+    * Return the patition count for a topic (zookeeper request).
     * @param topicName
     * @return
     */
@@ -41,9 +45,25 @@ abstract class OffsetStore(zookeeperQuorum: String) {
       zk.getChildren(zkNodeName, false).size
     }
 
+  /**
+    * Retrieve stored offset by partition from storage.
+    * @param topic
+    * @param consumer
+    * @return
+    */
   protected def getFromStorage(topic: String,
                                consumer: String): Future[Seq[(TopicPartition, Long)]]
 
+  /**
+    * Insert new partition offet(0) in storage.
+    * <br />
+    * Used when for new consumer and/or the partition.
+    *
+    * @param topic
+    * @param consumer
+    * @param value
+    * @return
+    */
   protected def newPartitions(topic: String,
                               consumer: String,
                               value: Range): Future[Seq[(TopicPartition, Long)]]
