@@ -27,7 +27,7 @@ import scala.concurrent.duration.DurationInt
 
 class SlickKafkaOffsetManagerSpec extends WordSpec {
 
-  "OffsetManager" should {
+  "OffsetManager" ignore  {
 
     val kaflaConnect = sys.env.get("KAFKA_IT_CONNECT").getOrElse("localhost:2181")
 

@@ -32,12 +32,12 @@ lazy val library =
     object Version {
       val slf4j = "1.7.25"
       val logback = "1.2.3"
-      val postgresql = "42.0.0.jre7"
-      val slick = "3.2.0"
+      val postgresql = "42.1.4"
+      val slick = "3.2.1"
       val zookeeper = "3.4.10"
-      val kafka = "0.15"
+      val kafka = "0.16"
       val scalaCheck = "1.13.5"
-      val scalaTest = "3.0.1"
+      val scalaTest = "3.0.3"
     }
 
     val log4j = "org.slf4j" % "log4j-over-slf4j" % Version.slf4j
@@ -89,7 +89,7 @@ lazy val scalafmtSettings =
   Seq(
     scalafmtOnCompile := true,
     scalafmtOnCompile.in(Sbt) := false,
-    scalafmtVersion := "1.1.0"
+    scalafmtVersion := "1.2.0"
   )
 
 
