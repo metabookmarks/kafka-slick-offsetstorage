@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Olivier NOUGUIER
+ * Copyright 2017 io.metabookmarks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
