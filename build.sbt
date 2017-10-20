@@ -60,10 +60,11 @@ lazy val settings =
     gitSettings ++
     scalafmtSettings
 
+
 lazy val commonSettings =
   Seq(
     // scalaVersion from .travis.yml via sbt-travisci
-    scalaVersion := "2.12.3",
+    scalaVersion := "2.12.4",
     organization := "io.metabookmarks",
     startYear := Some(2017),
     licenses += ("Apache-2.0",
@@ -76,8 +77,13 @@ lazy val commonSettings =
       "-encoding", "UTF-8"
     ),
     unmanagedSourceDirectories.in(Compile) := Seq(scalaSource.in(Compile).value),
-    unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value)
-  )
+    unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value),
+    shellPrompt in ThisBuild := { state =>
+      val project = Project.extract(state).currentRef.project
+      s"[$project]> "
+    },
+    wartremoverWarnings in (Compile, compile) ++= Warts.unsafe
+)
 
 lazy val gitSettings =
   Seq(
@@ -88,8 +94,6 @@ lazy val scalafmtSettings =
   Seq(
     scalafmtOnCompile := true,
     scalafmtOnCompile.in(Sbt) := false,
-    scalafmtVersion := "1.2.0"
+    scalafmtVersion := "1.3.0"
   )
-
-
 fork in Test := true
