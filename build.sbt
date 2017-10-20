@@ -34,9 +34,9 @@ lazy val library =
       val postgresql = "42.1.4"
       val slick = "3.2.1"
       val zookeeper = "3.4.10"
-      val kafka = "0.16"
+      val kafka = "0.17"
       val scalaCheck = "1.13.5"
-      val scalaTest = "3.0.3"
+      val scalaTest = "3.0.4"
     }
 
     val log4j = "org.slf4j" % "log4j-over-slf4j" % Version.slf4j
