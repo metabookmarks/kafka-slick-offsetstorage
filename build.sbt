@@ -34,9 +34,9 @@ lazy val library =
       val postgresql = "42.1.4"
       val slick = "3.2.1"
       val zookeeper = "3.4.10"
-      val kafka = "0.16"
+      val kafka = "0.17"
       val scalaCheck = "1.13.5"
-      val scalaTest = "3.0.3"
+      val scalaTest = "3.0.4"
     }
 
     val log4j = "org.slf4j" % "log4j-over-slf4j" % Version.slf4j
@@ -60,6 +60,7 @@ lazy val settings =
     gitSettings ++
     scalafmtSettings
 
+
 lazy val commonSettings =
   Seq(
     // scalaVersion from .travis.yml via sbt-travisci
@@ -76,8 +77,13 @@ lazy val commonSettings =
       "-encoding", "UTF-8"
     ),
     unmanagedSourceDirectories.in(Compile) := Seq(scalaSource.in(Compile).value),
-    unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value)
-  )
+    unmanagedSourceDirectories.in(Test) := Seq(scalaSource.in(Test).value),
+    shellPrompt in ThisBuild := { state =>
+      val project = Project.extract(state).currentRef.project
+      s"[$project]> "
+    },
+    wartremoverWarnings in (Compile, compile) ++= Warts.unsafe
+)
 
 lazy val gitSettings =
   Seq(
@@ -88,8 +94,6 @@ lazy val scalafmtSettings =
   Seq(
     scalafmtOnCompile := true,
     scalafmtOnCompile.in(Sbt) := false,
-    scalafmtVersion := "1.2.0"
+    scalafmtVersion := "1.3.0"
   )
-
-
 fork in Test := true
