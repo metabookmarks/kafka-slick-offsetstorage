@@ -31,11 +31,11 @@ lazy val library =
     object Version {
       val slf4j = "1.7.25"
       val logback = "1.2.3"
-      val postgresql = "42.2.2"
+      val postgresql = "42.2.5"
       val slick = "3.2.3"
-      val zookeeper = "3.4.11"
-      val kafka = "0.20"
-      val scalaCheck = "1.13.5"
+      val zookeeper = "3.4.13"
+      val kafka = "0.22"
+      val scalaCheck = "1.14.0"
       val scalaTest = "3.0.5"
     }
 
@@ -64,7 +64,7 @@ lazy val settings =
 lazy val commonSettings =
   Seq(
     // scalaVersion from .travis.yml via sbt-travisci
-    scalaVersion := "2.12.5",
+    scalaVersion := "2.12.7",
     organization := "io.metabookmarks",
     startYear := Some(2017),
     licenses += ("Apache-2.0",
@@ -94,6 +94,6 @@ lazy val scalafmtSettings =
   Seq(
     scalafmtOnCompile := true,
     scalafmtOnCompile.in(Sbt) := false,
-    scalafmtVersion := "1.4.0"
+    scalafmtVersion := "1.5.1"
   )
 fork in Test := true
