@@ -1,3 +1,10 @@
+bintrayOrganization in ThisBuild := Some("metabookmarks")
+
+
+
+licenses in ThisBuild += ("Apache-2.0",
+  url("http://www.apache.org/licenses/LICENSE-2.0"))
+
 // *****************************************************************************
 // Projects
 // *****************************************************************************
@@ -8,6 +15,7 @@ lazy val `kafka-slick-offsetstorage` =
     .enablePlugins(AutomateHeaderPlugin, GitVersioning, GitBranchPrompt)
     .settings(settings)
     .settings(
+      bintrayRepository := "releases",
       libraryDependencies ++= library.slicks ++
         Seq(
           library.log4j,
@@ -67,8 +75,6 @@ lazy val commonSettings =
     scalaVersion := "2.12.7",
     organization := "io.metabookmarks",
     startYear := Some(2017),
-    licenses += ("Apache-2.0",
-      url("http://www.apache.org/licenses/LICENSE-2.0")),
     scalacOptions ++= Seq(
       "-unchecked",
       "-deprecation",
@@ -98,9 +104,3 @@ lazy val scalafmtSettings =
   )
 fork in Test := true
 
-bintrayOrganization in ThisBuild := Some("metabookmarks")
-
-bintrayPackage in ThisBuild := "laogm-silhouette"
-
-licenses in ThisBuild += ("Apache-2.0",
-  url("http://www.apache.org/licenses/LICENSE-2.0"))
