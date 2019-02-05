@@ -40,7 +40,7 @@ lazy val library =
       val slf4j = "1.7.25"
       val logback = "1.2.3"
       val postgresql = "42.2.5"
-      val slick = "3.2.3"
+      val slick = "3.3.0"
       val zookeeper = "3.4.13"
       val kafka = "0.22"
       val scalaCheck = "1.14.0"
@@ -72,7 +72,7 @@ lazy val settings =
 lazy val commonSettings =
   Seq(
     // scalaVersion from .travis.yml via sbt-travisci
-    scalaVersion := "2.12.7",
+    scalaVersion := "2.12.8",
     organization := "io.metabookmarks",
     startYear := Some(2017),
     scalacOptions ++= Seq(
